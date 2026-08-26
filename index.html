@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project X - Home</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .home-page {
+    flex: 1 0 auto;
+    padding: 30px 40px;
+  }
+
+  .user-banner {
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    margin-bottom: 25px;
+  }
+
+  .user-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .user-avatar img#PlayerImageHolder {
+    max-width: 60%;
+    max-height: 60%;
+    object-fit: contain;
+  }
+
+  .user-avatar svg {
+    width: 60px;
+    height: 60px;
+    fill: #b0b0b0;
+  }
+
+  .user-info h1 {
+    font-size: 42px;
+    color: #222222;
+    font-weight: 500;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="burger"><span></span><span></span><span></span></div>
+    <img src="logo.png" alt="Logo" class="logo">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Catalog</a>
+      <a href="create.html">Create</a>
+      <a href="download.html">Download</a>
+    </div>
+
+    <div class="search-wrap">
+      <input type="text" placeholder="Search">
+      <img src="finder.png" alt="Search" class="search-icon">
+      <div class="search-dropdown">
+        <a href="#" class="search-dropdown-item">Search "." in Catalog</a>
+        <a href="#" class="search-dropdown-item">Search "." in People</a>
+        <a href="#" class="search-dropdown-item">Search "." in Games</a>
+        <a href="#" class="search-dropdown-item">Search "." in Groups</a>
+        <a href="#" class="search-dropdown-item">Search "." in Library</a>
+      </div>
+    </div>
+
+    <div class="auth-links">
+      <div class="login-wrapper">
+        <a href="#" class="login" id="loginBtn">Login</a>
+        <div class="login-dropdown" id="loginDropdown">
+          <form id="loginForm" onsubmit="return false;">
+            <input type="text" id="loginUsername" placeholder="Username/Email/Phone" class="login-input" required>
+            <input type="password" id="loginPassword" placeholder="Password" class="login-input" required>
+            <div class="login-btn-row">
+              <button type="submit" class="btn-login-submit" id="loginSubmitBtn">Log In</button>
+              <a href="#" class="btn-signup-alt" id="signupBtnAlt">Sign up</a>
+            </div>
+            <a href="#" class="forgot-password">Forgot Password?</a>
+          </form>
+        </div>
+      </div>
+      
+      <div class="signup-wrapper" style="position: relative;">
+        <a href="#" class="signup" id="signupBtnHeader">Sign Up</a>
+        <div class="login-dropdown" id="signupDropdown" style="width: 320px;">
+          <form id="registerForm" onsubmit="return false;">
+            <input type="text" id="regUsername" placeholder="Create Username" class="login-input" required>
+            <input type="password" id="regPassword" placeholder="Create Password (min 8 chars)" class="login-input" required>
+            <div style="display: flex; gap: 5px; margin-bottom: 12px;">
+              <select id="regMonth" class="login-input" style="flex: 2; margin-bottom: 0;" required>
+                <option value="" disabled selected>Month</option>
+                <option value="Jan">January</option><option value="Feb">February</option>
+                <option value="Mar">March</option><option value="Apr">April</option>
+                <option value="May">May</option><option value="Jun">June</option>
+                <option value="Jul">July</option><option value="Aug">August</option>
+                <option value="Sep">September</option><option value="Oct">October</option>
+                <option value="Nov">November</option><option value="Dec">December</option>
+              </select>
+              <select id="regDay" class="login-input" style="flex: 1; margin-bottom: 0;" required>
+                <option value="" disabled selected>Day</option>
+                <option value="01">01</option><option value="02">02</option><option value="03">03</option>
+              </select>
+              <select id="regYear" class="login-input" style="flex: 1.2; margin-bottom: 0;" required>
+                <option value="" disabled selected>Year</option>
+                <option value="2017">2017</option><option value="2016">2016</option>
+              </select>
+            </div>
+            <select id="regGender" class="login-input" required>
+              <option value="" disabled selected>Gender</option>
+              <option value="male">Boy</option>
+              <option value="female">Girl</option>
+            </select>
+            <div class="login-btn-row">
+              <button type="submit" class="btn-login-submit" id="regSubmitBtn" style="background-color: #12b05d;">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-page">
+    <!-- USER BANNER -->
+    <div class="user-banner">
+      <div class="user-avatar" id="avatarContainer">
+        <img id="PlayerImageHolder" src="PlayerImageHolder.png" alt="Player Image" onerror="this.style.display='none'; document.getElementById('defaultAvatarSvg').style.display='block';">
+        <svg id="defaultAvatarSvg" viewBox="0 0 24 24" style="display:none;">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+      </div>
+      <div class="user-info">
+        <h1>Hello, Guest</h1>
+      </div>
+    </div>
+
+    <!-- FRIENDS CONTAINER -->
+    <div id="friendsContainer" class="friends-wrapper">
+      <div class="friends-header">
+        <span>Friends (0)</span>
+        <a href="#" class="btn-see-all">See All</a>
+      </div>
+      <div class="friends-body">
+        No friends yet. Add them in player profiles or in-game via Esc menu.
+      </div>
+    </div>
+
+    <!-- POPULAR GAMES SECTION -->
+    <div class="section-header-row">
+      <h2 style="font-size: 24px; font-weight: 600; color: #222;">Popular</h2>
+      <a href="#" class="btn-see-all">See All</a>
+    </div>
+
+    <!-- Пустая сетка под будущие игры -->
+    <div class="games-grid-container"></div>
+  </div>
+
+  <!-- CHAT WIDGET -->
+  <div class="chat-container" id="chatWidget">
+    <div class="chat-header" id="chatHeader">Chat</div>
+    <div class="chat-body">
+      <div class="chat-messages">
+        <div class="chat-empty-msg">No recent messages</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="#">About Us</a>
+      <a href="#">Discord</a>
+      <a href="#">Robux Exchange</a>
+      <a href="#">Tix Exchange</a>
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+    </div>
+    <div class="footer-copyright">© 2026 — This project is not affiliated with, endorsed by, or connected to Roblox Corporation in any way.</div>
+  </footer>
+
+  <script src="script.js?v=999"></script>
+</body>
+</html>

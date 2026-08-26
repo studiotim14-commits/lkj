@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project X - Catalog</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .catalog-page { flex: 1 0 auto; padding: 28px 40px; }
+
+  .catalog-header-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    flex-wrap: wrap; gap: 16px; margin-bottom: 26px;
+  }
+  .catalog-header-row h1 { font-size: 34px; color: #1a1a1a; }
+
+  .catalog-search-controls { display: flex; gap: 8px; }
+  .catalog-search-controls input[type="text"] {
+    width: 320px; height: 32px; border: 1px solid #bbb; border-radius: 2px; padding: 0 10px; font-size: 14px;
+  }
+  .catalog-search-controls select {
+    height: 32px; border: 1px solid #bbb; border-radius: 2px; font-size: 14px; padding: 0 6px;
+  }
+  .catalog-search-controls button {
+    height: 32px; padding: 0 18px; border: 1px solid #bbb; border-radius: 2px;
+    background: #eee; font-weight: bold; font-size: 14px; cursor: pointer;
+  }
+  .catalog-search-controls button:hover { background: #ddd; }
+
+  .catalog-layout { display: flex; gap: 30px; }
+  .catalog-sidebar { width: 230px; flex-shrink: 0; }
+
+  .category-box { border: 1px solid #d8d8d8; margin-bottom: 26px; }
+  .category-box-header { background-color: #4a4a4a; color: #fff; font-weight: bold; font-size: 13px; padding: 10px 14px; }
+  .category-box-header span { display: block; font-size: 15px; margin-top: 2px; }
+
+  .category-list a {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px; color: #2f2f2f; text-decoration: none; font-size: 14px;
+    border-top: 1px solid #e6e6e6;
+  }
+  .category-list a:hover { background-color: #f2f2f2; }
+
+  .filters h2 { font-size: 26px; color: #1a1a1a; margin-bottom: 14px; }
+  .filters h3 { font-size: 14px; margin-bottom: 8px; }
+
+  .genre-list label {
+    display: flex; align-items: center; gap: 8px; font-size: 14px;
+    color: #2f2f2f; padding: 4px 0; cursor: pointer;
+  }
+  .genre-list label.all-genres { font-weight: bold; }
+
+  .catalog-main { flex: 1; }
+  .catalog-main-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+  .catalog-main-top h2 { font-size: 24px; color: #1a1a1a; font-weight: 600; }
+
+  .sort-by { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: bold; }
+  .sort-by select { height: 30px; border: 1px solid #bbb; font-size: 14px; padding: 0 6px; }
+
+  .pagination { display: flex; justify-content: center; align-items: center; gap: 16px; margin-bottom: 30px; }
+  .pagination button { width: 28px; height: 26px; border: 1px solid #bbb; background: #eee; cursor: pointer; }
+  .pagination button:hover { background: #ddd; }
+
+  .catalog-items-grid { min-height: 200px; }
+</style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="burger"><span></span><span></span><span></span></div>
+
+    <img src="logo.png" alt="Logo" class="logo">
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Catalog</a>
+      <a href="create.html">Create</a>
+      <a href="#">Download</a>
+    </div>
+
+    <div class="search-wrap">
+      <input type="text" placeholder="Search">
+      <img src="finder.png" alt="Search" class="search-icon">
+    </div>
+
+    <div class="auth-links">
+      <div class="login-wrapper">
+        <a href="#" class="login" id="loginBtn">Login</a>
+        
+        <!-- Pop-down Login Box -->
+        <div class="login-dropdown" id="loginDropdown">
+          <form onsubmit="return false;">
+            <input type="text" placeholder="Username/Email/Phone" class="login-input">
+            <input type="password" placeholder="Password" class="login-input">
+            <div class="login-btn-row">
+              <button type="submit" class="btn-login-submit">Log In</button>
+              <a href="#" class="btn-signup-alt">Sign up</a>
+            </div>
+            <a href="#" class="forgot-password">Forgot Password?</a>
+          </form>
+        </div>
+      </div>
+      
+      <a href="#" class="signup">Sign Up</a>
+    </div>
+  </div>
+
+  <div class="catalog-page">
+    <div class="catalog-header-row">
+      <h1>Catalog</h1>
+      <div class="catalog-search-controls">
+        <input type="text" id="catalogSearchInput" placeholder="Search">
+        <select id="catalogCategorySelect">
+          <option>All Categories</option>
+        </select>
+        <button id="catalogSearchBtn" type="button">Search</button>
+      </div>
+    </div>
+
+    <div class="catalog-layout">
+      <div class="catalog-sidebar">
+        <div class="category-box">
+          <div class="category-box-header">Browse by<span>Category</span></div>
+          <div class="category-list" id="categoryList">
+            <a href="#">Featured <span>&#9656;</span></a>
+            <a href="#">Collectibles <span>&#9656;</span></a>
+            <a href="#">Emotes</a>
+            <a href="#">All Categories</a>
+            <a href="#">Body Parts <span>&#9656;</span></a>
+            <a href="#">Clothing <span>&#9656;</span></a>
+            <a href="#">Gear <span>&#9656;</span></a>
+          </div>
+        </div>
+
+        <div class="filters">
+          <h2>Filters</h2>
+          <h3>Genre</h3>
+          <div class="genre-list" id="genreFilterList">
+            <label class="all-genres"><input type="radio" name="genre" checked> All Genres</label>
+            <label><input type="checkbox" value="Building"> Building</label>
+            <label><input type="checkbox" value="Horror"> Horror</label>
+            <label><input type="checkbox" value="Town and City"> Town and City</label>
+            <label><input type="checkbox" value="Military"> Military</label>
+            <label><input type="checkbox" value="Comedy"> Comedy</label>
+            <label><input type="checkbox" value="Medieval"> Medieval</label>
+            <label><input type="checkbox" value="Fantasy"> Fantasy</label>
+            <label><input type="checkbox" value="Sci-Fi"> Sci-Fi</label>
+            <label><input type="checkbox" value="Sports"> Sports</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="catalog-main">
+        <div class="catalog-main-top">
+          <h2>Featured Items</h2>
+          <div class="sort-by">
+            Sort By:
+            <select id="sortBySelect">
+              <option>Relevance</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>Recently Added</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pagination">
+          <button id="prevPageBtn" type="button">&#9664;</button>
+          <span id="pageIndicator">Page 1</span>
+          <button id="nextPageBtn" type="button">&#9654;</button>
+        </div>
+
+        <div class="catalog-items-grid" id="catalogItemsGrid">
+          <!-- items get rendered here by script -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Roblox 2017 Chat Bar Widget -->
+  <div class="chat-container" id="chatWidget">
+    <div class="chat-header" id="chatHeader">Chat</div>
+    <div class="chat-body">
+      <div class="chat-messages">
+        <div class="chat-empty-msg">No recent messages</div>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="#">About Us</a>
+      <a href="#">Discord</a>
+      <a href="#">Robux Exchange</a>
+      <a href="#">Tix Exchange</a>
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+    </div>
+    <div class="footer-copyright">© 2026 — This project is not affiliated with, endorsed by, or connected to Roblox Corporation in any way.</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

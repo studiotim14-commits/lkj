@@ -1,0 +1,2 @@
+# Custom 404 Error Page for Apache servers
+ErrorDocument 404 /error.html
