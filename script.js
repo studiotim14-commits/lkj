@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Жёстко прописанный адрес бэкенда на Netlify
-  const BACKEND_URL = 'https://projactx.netlify.app/.netlify/functions';
+  const BACKEND_URL = 'https://lkj-production.up.railway.app';
 
   // ==========================================
   // ВХОД (LOGIN DROPDOWN)
