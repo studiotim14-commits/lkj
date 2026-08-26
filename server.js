@@ -23,6 +23,7 @@ app.get('/api/games', (req, res) => {
     res.json([]);
 });
 
-app.listen(PORT, () => {
+// Обязательно указываем '0.0.0.0', чтобы Railway не сбрасывал соединение
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
 });
