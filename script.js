@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Жёстко прописанный адрес бэкенда на Netlify
+  // Жёстко прописанный адрес бэкенда на Railway
   const BACKEND_URL = 'https://lkj-production.up.railway.app';
 
   // ==========================================
@@ -36,7 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         if (loginSubmitBtn) { loginSubmitBtn.innerText = 'Loading...'; loginSubmitBtn.disabled = true; }
-        const response = await fetch(`${BACKEND_URL}/login`, {
+        // Добавлено /api в путь
+        const response = await fetch(`${BACKEND_URL}/api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username: usernameOrEmail, password })
@@ -105,7 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         if (regSubmitBtn) { regSubmitBtn.innerText = 'Creating...'; regSubmitBtn.disabled = true; }
 
-        const response = await fetch(`${BACKEND_URL}/register`, {
+        // Добавлено /api в путь
+        const response = await fetch(`${BACKEND_URL}/api/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password, birthMonth, birthDay, birthYear, gender })
@@ -190,7 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!gamesGrid) return;
 
     try {
-      const response = await fetch(`${BACKEND_URL}/games`);
+      // Добавлено /api в путь
+      const response = await fetch(`${BACKEND_URL}/api/games`);
       if (response.ok) {
         const games = await response.json();
         if (games.length > 0) {
@@ -284,7 +287,8 @@ document.addEventListener('DOMContentLoaded', () => {
       moderationStatus.innerText = 'Publishing place to server...';
 
       try {
-        const response = await fetch(`${BACKEND_URL}/games`, {
+        // Добавлено /api в путь
+        const response = await fetch(`${BACKEND_URL}/api/games`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
